@@ -1,5 +1,7 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     <section>
         <div class="container-fluid">
             <div class="row">
@@ -35,27 +37,20 @@
                             </tr>
                         </thead>
                         <tbody>
+                        <c:forEach var="bo" items="${list }">
                             <tr>
-                                <td>1</td>
-                                <td><a href="##">첫글</a></td>
-                                <td>홍길순</td>
-                                <td>~~~~~</td>
-                                <td>~~~~~</td>
+                                <td>${bo.bno }</td>
+                                <td><a href="freeDetail?bno=${bo.bno }">${bo.title }</a></td>
+                                <td>${bo.writer }</td>
+                                <td>
+                                <fmt:formatDate value="${bo.regdate }" pattern="yy년MM월dd일hh시mm분ss초"/>
+                                </td>
+                                <td>
+                                <fmt:formatDate value="${bo.updatedate }" pattern="yy년MM월dd일hh시mm분ss초"/>
+                                </td>
                             </tr>
-                            <tr>
-                                <td>2</td>
-                                <td><a href="##">두글</a></td>
-                                <td>홍길순</td>
-                                <td>~~~~~</td>
-                                <td>~~~~~</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td><a href="##">세글</a></td>
-                                <td>홍길순</td>
-                                <td>~~~~~</td>
-                                <td>~~~~~</td>
-                            </tr>
+                        </c:forEach>
+                           
                         </tbody>
                         
                     </table>
@@ -74,7 +69,7 @@
                         <li><a href="#">5</a></li>
                         <li><a href="#">다음</a></li>
                     </ul>
-                    <button type="button" class="btn btn-info">글쓰기</button>
+                    <button type="button" class="btn btn-info" onclick="location.href='freeRegist'">글쓰기</button>
                     </div>
 		    </form>
 
@@ -82,6 +77,15 @@
             </div>
         </div>
 	</section>
-
+	
+	<script>
+		
+	var msg = '${msg}';
+	
+	if(msg != ""){
+		alert(msg);
+	}
+	
+	</script>
 
 

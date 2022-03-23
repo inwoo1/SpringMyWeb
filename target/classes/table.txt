@@ -9,3 +9,13 @@ create table freeboard(
 );
 
 create SEQUENCE freeboard_sqe INCREMENT by 1 start with 1 nocache;
+
+--페이지 구문
+select *
+from(select rownum rn,
+        A.*
+     from( select *
+           from freeboard
+           order by bno desc ) A
+)
+where rn > 10 and rn <= 20;
