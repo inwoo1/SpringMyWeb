@@ -14,6 +14,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.coding404.command.FreeBoardVO;
 import com.coding404.freeboard.service.FreeBoardService;
+import com.coding404.util.Criteria;
+import com.coding404.util.PageVO;
 
 @Controller //컴포넌트 스캔
 @RequestMapping("/freeBoard")
@@ -30,11 +32,21 @@ public class FreeBoardController {
 	}
 	
 	@RequestMapping("/freeList")
-	public String freeList(Model model) {
+	public String freeList(Model model, Criteria cri) {
 		
-		ArrayList<FreeBoardVO> list = freeBoardService.getList();
+		System.out.println(cri.toString());
+		
+		//페이지가 없는 모형
+//		ArrayList<FreeBoardVO> list = freeBoardService.getList();
+		//페이지가 있는 모형
+		ArrayList<FreeBoardVO> list = freeBoardService.getList(cri);
+		
+		//페이지네이션 생성
+		int total = freeBoardService.getTotal(cri);
+		PageVO pageVO = new PageVO(cri, total);
+		
 		model.addAttribute("list", list);
-		
+		model.addAttribute("pageVO", pageVO);
 		return "freeBoard/freeList";
 	}
 	
